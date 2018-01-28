@@ -1,5 +1,5 @@
 {
-  "name": "RNFirebaseStarter",
+  "name": "Gergo",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
@@ -24,6 +24,7 @@
     "fbjs": "^0.8.16",
     "react": "^16.2.0",
     "react-native": "^0.52.0",
+    "react-native-fbsdk": "^0.7.0",
     "react-native-firebase": "^3.2.2"
   }
 }

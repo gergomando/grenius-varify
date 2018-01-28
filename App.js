@@ -1,7 +1,37 @@
 import React from 'react';
 import { StyleSheet, Platform, Image, Text, View } from 'react-native';
-
+import { AccessToken, LoginManager } from 'react-native-fbsdk';
 import firebase from 'react-native-firebase';
+
+
+const facebookLogin = () => {
+  LoginManager.logOut();
+  return LoginManager
+    .logInWithReadPermissions(['public_profile', 'email'])
+    .then((result) => {
+      if (!result.isCancelled) {
+        console.log(`Login success with permissions: ${result.grantedPermissions.toString()}`);
+        // get the access token
+        return AccessToken.getCurrentAccessToken();
+      }
+    })
+    .then(data => {
+      if (data) {
+        // create a new firebase credential with the token
+        const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken);
+        // login with credential
+        return firebase.auth().signInWithCredential(credential);
+      }
+    })
+    .then((currentUser) => {
+      if (currentUser) {
+        console.error(JSON.stringify(currentUser.toJSON()));
+      }
+    })
+    .catch((error) => {
+      console.log(`Login fail with error: ${error}`);
+    })
+}
 
 export default class App extends React.Component {
   constructor() {
@@ -12,7 +42,7 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    // firebase things?
+   facebookLogin();
   }
 
   render() {

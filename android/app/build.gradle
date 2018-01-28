@@ -99,11 +99,11 @@ android {
     dexOptions {
         javaMaxHeapSize "4g"
     }
-    compileSdkVersion 24
-    buildToolsVersion "23.0.1"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
 
     defaultConfig {
-        applicationId "com.invertase.rnfirebasestarter"
+        applicationId "com.gergo.gergo"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
@@ -148,6 +148,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-fbsdk')
     compile(project(':react-native-firebase')) {
         transitive = false
     }
@@ -172,7 +173,7 @@ dependencies {
     }
 
     compile fileTree(dir: "libs", include: ["*.jar"])
-    compile "com.android.support:appcompat-v7:23.0.1"
+    compile "com.android.support:appcompat-v7:26.0.2"
     compile "com.facebook.react:react-native:+"  // From node_modules
 }
 
