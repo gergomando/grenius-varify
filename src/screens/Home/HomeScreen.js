@@ -35,13 +35,28 @@ export default class HomeScreen extends React.Component {
       .then((currentUser) => {
         if (currentUser) {
           this.setState({ 'currentUser' : currentUser.toJSON() });
-          this.props.navigation.navigate('Game',{gameType: 'Varify', user: this.state.currentUser })
+          this.navigateToGame();
         }
       })
       .catch((error) => {
         console.log(`Login fail with error: ${error}`);
       })
   }
+
+  addUser = () => {
+    const data = {
+        name: 'Tarka Barka',
+    };
+
+    const setDoc = firebase.firestore().collection('users').doc().set(data);
+    setDoc.then(res => {
+        console.log('Set: ', res);
+    });
+
+    this.navigateToGame();
+  }
+
+  navigateToGame = () => this.props.navigation.navigate('Game',{gameType: 'Varify', user: this.state.currentUser });
 
   render() {
     const { navigate } = this.props.navigation;
@@ -57,7 +72,7 @@ export default class HomeScreen extends React.Component {
           <Button
             containerStyle={styles.playBtn} 
             style={styles.playBtnInside}
-            onPress={() => navigate('Game',{gameType: 'Varify', user: this.state.currentUser })}>
+            onPress={this.addUser}>
             Press to Play
           </Button>
           <Button
