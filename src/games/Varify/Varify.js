@@ -93,7 +93,6 @@ export default class Varify extends React.Component {
             </View>
             <Text style={styles.title}>
               Do <Text style={styles.fontYellow}>You</Text> know the <Text style={styles.fontRed}>answer?</Text>
-              { this.props.user.displayName }
             </Text>
             <View>      
                 <FlatList

@@ -35,6 +35,7 @@ export default class HomeScreen extends React.Component {
       .then((currentUser) => {
         if (currentUser) {
           this.setState({ 'currentUser' : currentUser.toJSON() });
+          const setDoc = firebase.firestore().collection('users').doc().set(currentUser.toJSON());
           this.navigateToGame();
         }
       })
@@ -44,16 +45,13 @@ export default class HomeScreen extends React.Component {
   }
 
   addUser = () => {
-    const data = {
-        name: 'Tarka Barka',
-    };
-
+    const data = { name: 'Tarka Barka' };
     const setDoc = firebase.firestore().collection('users').doc().set(data);
-    setDoc.then(res => {
-        console.log('Set: ', res);
-    });
-
     this.navigateToGame();
+  }
+
+  componentDidMount() {
+    // LoginManager.logOut();
   }
 
   navigateToGame = () => this.props.navigation.navigate('Game',{gameType: 'Varify', user: this.state.currentUser });
