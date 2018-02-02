@@ -5,17 +5,9 @@ import styles from './HomeScreen.style.js';
 
 import { AccessToken, LoginManager } from 'react-native-fbsdk';
 import firebase from 'react-native-firebase';
+import Play from '../../components/Icons/PlayBtn';
 
 export default class HomeScreen extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      currentUser : {
-        displayName: 'anonymus',
-      }
-    };
-  }
-
   facebookLogin = () => {
     return LoginManager
       .logInWithReadPermissions(['public_profile', 'email'])
@@ -34,8 +26,9 @@ export default class HomeScreen extends React.Component {
       })
       .then((currentUser) => {
         if (currentUser) {
-          this.setState({ 'currentUser' : currentUser.toJSON() });
-          const setDoc = firebase.firestore().collection('users').doc().set(currentUser.toJSON());
+          const user = currentUser.toJSON();
+          const userDoc = firebase.firestore().collection('users').doc(user.uid);
+          userDoc.set(user, { merge: true});
           this.navigateToGame();
         }
       })
@@ -50,11 +43,9 @@ export default class HomeScreen extends React.Component {
     this.navigateToGame();
   }
 
-  componentDidMount() {
-    // LoginManager.logOut();
+  navigateToGame = () => {
+    return this.props.navigation.navigate('Game');
   }
-
-  navigateToGame = () => this.props.navigation.navigate('Game',{gameType: 'Varify', user: this.state.currentUser });
 
   render() {
     const { navigate } = this.props.navigation;
@@ -72,14 +63,16 @@ export default class HomeScreen extends React.Component {
             style={styles.playBtnInside}
             onPress={this.addUser}>
             Press to Play
+            <View style={{position: 'absolute', 'right': 24, }}>
+            <Play />
+            </View>
           </Button>
           <Button
-            containerStyle={styles.playBtn} 
-            style={styles.playBtnInside}
+            containerStyle={[styles.playBtn, styles.playBtnFb]} 
+            style={[styles.playBtnInside, styles.playBtnInsideFb]}
             onPress={this.facebookLogin}>
-            Login Fb
+            Login Fb 
           </Button>
-
         </View>
       </ImageBackground>
     );

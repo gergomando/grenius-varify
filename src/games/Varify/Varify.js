@@ -5,6 +5,8 @@ import styles from './Varify.style.js';
 import Hero from '../Hero.js';
 import TopMenu from '../../components/TopMenu/TopMenu';
 
+const MAX_ROUND_NR = 2;
+
 export default class Varify extends React.Component {
   constructor(props) {
     super(props);
@@ -36,9 +38,9 @@ export default class Varify extends React.Component {
       this.setState({animate:'animateDeadEye'});
       this.changePoint(-2);
     }
-    const isLastRound = this.state.roundNr === 10;
+    const isLastRound = this.state.roundNr === MAX_ROUND_NR;
     if(isLastRound) {
-      const params = { roundNr: this.state.roundNr, rightAnswerNr };
+      const params = { roundNr: this.state.roundNr, rightAnswerNr, point: this.state.point };
       this.props.navigation.navigate('Analyze', {...params});
     } else {
       this.nextGame();

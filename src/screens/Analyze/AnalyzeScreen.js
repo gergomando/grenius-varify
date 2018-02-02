@@ -2,6 +2,7 @@ import React from 'react';
 import {Text, View, StyleSheet, FlatList, Image, ImageBackground } from 'react-native';
 import Button from 'react-native-button';
 import styles from './AnalyzeScreen.style.js';
+import firebase from 'react-native-firebase';
 
 export default class AnalyzeScreen extends React.Component {
   params = this.props.navigation.state.params;
@@ -15,6 +16,24 @@ export default class AnalyzeScreen extends React.Component {
       return 'Weak';
     }
   }
+
+  componentDidMount() {
+    const user = firebase.auth().currentUser;
+    const userDoc = firebase.firestore().collection('users').doc(user.uid);
+    const self = this;
+    userDoc.get().then(function(doc) {
+      if (doc.exists) {
+          const userPoint = doc.data().point || 0;
+          const point = userPoint + self.params.point;
+          userDoc.set({ gameStats: { ...user.gameStats, point } }, { merge: true });
+      } else {
+          console.log("No such document!");
+      }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
+  }
+
   render = () =>
     <ImageBackground style={styles.bgImg} source={require('../../assets/space_bg_dark.jpg')}>
       <View style={styles.container}>
