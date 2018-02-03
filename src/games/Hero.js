@@ -9,6 +9,8 @@ export default class Hero extends React.Component {
       eyeSize: new Animated.Value(20),
       tonguePos: new Animated.Value(40),
       deadEye: new Animated.Value(0),
+      blackHole: new Animated.Value(0),
+      makiHead: new Animated.Value(0),
     };
 
     this.state.eyeSize.addListener((eyeSize) => {
@@ -24,6 +26,14 @@ export default class Hero extends React.Component {
     this.state.deadEye.addListener((deadEye) => {
       const opacity = deadEye.value;
       this.deadEye.setNativeProps({ opacity });
+    });
+
+    this.state.blackHole.addListener((blackHole) => {
+      const rx = (blackHole.value * 180).toString();
+      const ry = (blackHole.value * 80).toString();
+      this.blackHole.setNativeProps({ rx, ry });
+      const transform = {scale: 0.8, translate:'30, 120'};
+      this.makiHead.setNativeProps({ transform });
     });
   }
 
@@ -103,13 +113,26 @@ export default class Hero extends React.Component {
         }
     ).start();
   }
+
+  animateBlackHole = () => {
+    return Animated.timing(this.state.blackHole, {
+            toValue: 1,
+            duration: 2000,
+          }).start();
+  }
   
   render() {
+    this.animateBlackHole();
     if(this.props.animate && this[this.props.animate]) this[this.props.animate]();
         return (
           <View>
-          <Svg width={this.props.height ? (this.props.height*1.28) : 160} height={ this.props.height || 125} viewBox="0 0 320 250">
-              <G>
+            <Svg 
+              width={this.props.height ? (this.props.height*1.28) : 230}
+              height={ this.props.height || 160} 
+              viewBox="0 0 320 420"
+            >
+              <Ellipse ref={ ref => this.blackHole = ref } cx="150" cy="340" rx="180" ry="80" />
+              <G ref={ ref => this.makiHead = ref } transform={{scale: 0.8, translate:'30, 120'}}>
                 <Circle fill="#321E0F" cx="45.1" cy="49.5" r="45.1"/>
                 <Circle fill="#633A23" cx="50.3" cy="54.7" r="30.7"/>
                 <Circle fill="#321E0F"  cx="213.9" cy="45.1" r="45.1"/>
@@ -141,7 +164,7 @@ export default class Hero extends React.Component {
                   <Line fill="none" stroke="#DA1F26" strokeWidth="16" strokeMiterlimit={10} x1="162.2" y2="88.2" y1="138.1" x2="210.1" />
                 </G>
               </G>
-              </Svg>
+            </Svg>
           </View>
         );
     }

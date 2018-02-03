@@ -7,6 +7,7 @@ import { AccessToken, LoginManager } from 'react-native-fbsdk';
 import firebase from 'react-native-firebase';
 import Play from '../../components/Icons/PlayBtn';
 import Facebook from '../../components/Icons/Facebook';
+import Hero from '../../games/Hero';
 
 export default class HomeScreen extends React.Component {
   facebookLogin = () => {
@@ -58,7 +59,7 @@ export default class HomeScreen extends React.Component {
         <Text style={styles.title}>
           <Text style={{ color: '#fff'}}>The</Text> Game
         </Text>
-          <Image style={styles.heroImg} resizeMode="contain" source={require('../../assets/maki_head.png')} />
+          <Hero />
           <Button
             containerStyle={styles.playBtn} 
             style={styles.playBtnInside}
