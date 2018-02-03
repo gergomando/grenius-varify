@@ -6,6 +6,7 @@ import styles from './HomeScreen.style.js';
 import { AccessToken, LoginManager } from 'react-native-fbsdk';
 import firebase from 'react-native-firebase';
 import Play from '../../components/Icons/PlayBtn';
+import Facebook from '../../components/Icons/Facebook';
 
 export default class HomeScreen extends React.Component {
   facebookLogin = () => {
@@ -61,7 +62,7 @@ export default class HomeScreen extends React.Component {
           <Button
             containerStyle={styles.playBtn} 
             style={styles.playBtnInside}
-            onPress={this.addUser}>
+            onPress={this.navigateToGame}>
             Press to Play
             <View style={{position: 'absolute', 'right': 24, }}>
             <Play />
@@ -71,7 +72,10 @@ export default class HomeScreen extends React.Component {
             containerStyle={[styles.playBtn, styles.playBtnFb]} 
             style={[styles.playBtnInside, styles.playBtnInsideFb]}
             onPress={this.facebookLogin}>
-            Login Fb 
+            Login with Fb 
+            <View style={{position: 'absolute', 'right': 24, }}>
+            <Facebook />
+            </View>
           </Button>
         </View>
       </ImageBackground>

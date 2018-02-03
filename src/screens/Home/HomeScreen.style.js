@@ -24,7 +24,8 @@ export default StyleSheet.create({
     backgroundColor:'#F9D300',
     borderColor:'#f28807',
     borderRadius:16, 
-    borderWidth:2,
+    borderWidth:1,
+    borderBottomWidth: 4,
     width: 210,
   },
   playBtnFb: {

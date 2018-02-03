@@ -35,6 +35,7 @@ export default class TopMenu extends React.Component {
 
   padPoint(n, width, z) {
     z = z || '0';
+    n = n > 0 ? n : 0;
     n = n + '';
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
   }

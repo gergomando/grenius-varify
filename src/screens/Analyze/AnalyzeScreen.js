@@ -17,15 +17,23 @@ export default class AnalyzeScreen extends React.Component {
     }
   }
 
-  componentDidMount() {
-    const user = firebase.auth().currentUser;
-    const userDoc = firebase.firestore().collection('users').doc(user.uid);
+  componentWillMount() {
+    firebase.auth().onAuthStateChanged(user => {
+      if(!user) return;
+      this.updatePoint(user);
+    });
+  }
+
+  updatePoint = (user) => {
+    let userDoc = firebase.firestore().collection('users').doc(user.uid);
     const self = this;
-    userDoc.get().then(function(doc) {
+    return userDoc.get().then(function(doc) {
       if (doc.exists) {
-          const userPoint = doc.data().point || 0;
-          const point = userPoint + self.params.point;
-          userDoc.set({ gameStats: { ...user.gameStats, point } }, { merge: true });
+          const userPoint = doc.data().gameStats.point || 0;
+          let point = userPoint + self.params.point;
+          point = point > 0 ? point : 0;
+          const gameStats = { ...user.gameStats, point };
+          userDoc.set({ gameStats }, { merge: true });
       } else {
           console.log("No such document!");
       }
@@ -34,26 +42,29 @@ export default class AnalyzeScreen extends React.Component {
     });
   }
 
-  render = () =>
-    <ImageBackground style={styles.bgImg} source={require('../../assets/space_bg_dark.jpg')}>
-      <View style={styles.container}>
-        <Text style={styles.title}>
-        <Text style={{ color: '#fff'}}>You are</Text>
-        </Text>
-        <Text style={styles.title}>
-         {this.getDiagnose()}
-        </Text>
-        <Text style={styles.title}>
-          <Text style={{ color: '#f2a705'}}>{this.params.roundNr}/{this.params.rightAnswerNr}</Text>
-        </Text>
+  render() {
+    return (
+      <ImageBackground style={styles.bgImg} source={require('../../assets/space_bg_dark.jpg')}>
+        <View style={styles.container}>
+          <Text style={styles.title}>
+          <Text style={{ color: '#fff'}}>You are</Text>
+          </Text>
+          <Text style={styles.title}>
+           {this.getDiagnose()}
+          </Text>
+          <Text style={styles.title}>
+            <Text style={{ color: '#f2a705'}}>{this.params.roundNr}/{this.params.rightAnswerNr}</Text>
+          </Text>
 
-        <Image style={styles.heroImg} resizeMode="contain" source={require('../../assets/maki_head.png')} />
-        <Button
-          containerStyle={styles.playBtn} 
-          style={styles.playBtnInside}             
-          onPress={() => this.props.navigation.navigate('Game',{gameType: 'Varify'})}>
-          Press to Play
-        </Button>
-      </View>
-    </ImageBackground>;
+          <Image style={styles.heroImg} resizeMode="contain" source={require('../../assets/maki_head.png')} />
+          <Button
+            containerStyle={styles.playBtn} 
+            style={styles.playBtnInside}             
+            onPress={() => this.props.navigation.navigate('Game',{gameType: 'Varify'})}>
+            Press to Play
+          </Button>
+        </View>
+      </ImageBackground>
+    );
+  }
 }
