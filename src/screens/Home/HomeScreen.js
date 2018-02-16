@@ -59,7 +59,7 @@ export default class HomeScreen extends React.Component {
         <Text style={styles.title}>
           <Text style={{ color: '#fff'}}>The</Text> Game
         </Text>
-          <Hero />
+          <Hero height={100} animate="animateEyeSize" />
           <Button
             containerStyle={styles.playBtn} 
             style={styles.playBtnInside}

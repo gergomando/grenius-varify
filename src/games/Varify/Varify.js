@@ -8,6 +8,11 @@ import firebase from 'react-native-firebase';
 
 const MAX_ROUND_NR = 2;
 
+const variables = {
+  hamburger:  require('../../assets/hamburger.png'), 
+  pizza: require('../../assets/pizza.png'),
+};
+
 export default class Varify extends React.Component {
   constructor(props) {
     super(props);
@@ -17,6 +22,7 @@ export default class Varify extends React.Component {
       currentGame: 0,
       point: 0,
       globalPoint: 0,
+      level: 1,
       animate: false,
       roundNr: 1,
       rightAnswerNr: 0,
@@ -32,8 +38,8 @@ export default class Varify extends React.Component {
       const self = this;
       userDoc.get().then(function(doc) {
         if (doc.exists) {
-            const point = doc.data().gameStats.point || 0;
-            self.setState({ globalPoint: point });
+            const { level, point } = doc.data().gameStats;
+            self.setState({ globalPoint: point || 0 , level });
         }
       }).catch(function(error) {
           console.log("Error getting document:", error);
@@ -75,17 +81,17 @@ export default class Varify extends React.Component {
     }
   }
 
-  getMultiplierImage(n) {
+  getMultiplierImage(n,v) {
     const rows = [];
     for (var i=0; i < n; i++) {
-        rows.push(<Image style={styles.variable}  source={require('../../assets/hamburger.png')} />);
+        rows.push(<Image style={styles.variable}  source={variables[v]} />);
     }
     return rows;
   }
 
   getGame() {
     const self = this;
-    return fetch('http://geniusgames.webmusketas.hu/api/thegame', {
+    return fetch('http://geniusgames.webmusketas.hu/api/thegame/12', {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -119,7 +125,7 @@ export default class Varify extends React.Component {
                   <View style={styles.itemWrapper} key={item.result}>
                       <View style={styles.equationItem}>
                           <View style={styles.multiplierImage}>
-                            {this.getMultiplierImage(item.multiplier_1)}
+                            {this.getMultiplierImage(item.multiplier_1, 'hamburger')}
                           </View>
                           
                           <Text style={styles.operator}>
@@ -127,7 +133,7 @@ export default class Varify extends React.Component {
                           </Text>
                           
                           <View style={styles.multiplierImage}>
-                            {this.getMultiplierImage(item.multiplier_2)}
+                            {this.getMultiplierImage(item.multiplier_2,'pizza')}
                           </View>
                           
                           <Text style={styles.resultWrapper}>

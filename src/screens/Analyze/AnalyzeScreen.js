@@ -11,6 +11,8 @@ export default class AnalyzeScreen extends React.Component {
   getDiagnose = () => {
     percent = this.params.rightAnswerNr > 0 ? this.getPercent() : 0;
     if(percent > 50){
+
+
       return 'Genius';
     } else {
       return 'Weak';
@@ -29,10 +31,14 @@ export default class AnalyzeScreen extends React.Component {
     const self = this;
     return userDoc.get().then(function(doc) {
       if (doc.exists) {
-          const userPoint = doc.data().gameStats.point || 0;
-          let point = userPoint + self.params.point;
+          let { point, level } = doc.data().gameStats;
+          point = (point || 0) + self.params.point;
           point = point > 0 ? point : 0;
-          const gameStats = { ...user.gameStats, point };
+          level = level || 1;
+          if(self.params.rightAnswerNr > 0 && self.getPercent() > 49) {
+           level++;
+          }
+          const gameStats = { ...user.gameStats, point, level };
           userDoc.set({ gameStats }, { merge: true });
       } else {
           console.log("No such document!");
