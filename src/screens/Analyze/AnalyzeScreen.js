@@ -11,8 +11,6 @@ export default class AnalyzeScreen extends React.Component {
   getDiagnose = () => {
     percent = this.params.rightAnswerNr > 0 ? this.getPercent() : 0;
     if(percent > 50){
-
-
       return 'Genius';
     } else {
       return 'Weak';
@@ -35,7 +33,7 @@ export default class AnalyzeScreen extends React.Component {
           point = (point || 0) + self.params.point;
           point = point > 0 ? point : 0;
           level = level || 1;
-          if(self.params.rightAnswerNr > 0 && self.getPercent() > 49) {
+          if (self.params.rightAnswerNr > 0 && self.getPercent() > 49) {
            level++;
           }
           const gameStats = { ...user.gameStats, point, level };
