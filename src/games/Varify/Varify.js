@@ -89,19 +89,6 @@ export default class Varify extends React.Component {
     return rows;
   }
 
-  shareGame() {
-    console.log('pina');
-    const self = this;
-    let params = { rows: [...this.state.game.rows], result: [...this.state.game.results] };
-    params = JSON.stringify(params);
-    const url = `http://geniusgames.webmusketas.hu/api/create/image?params=${params}`;
-    console.log(url);
-    return fetch(url)
-    .then((response) => response.json())
-    .then(data => (console.log(data)));
-
-  }
-
   getGame() {
     const self = this;
     return fetch('http://geniusgames.webmusketas.hu/api/thegame/12', {
@@ -123,16 +110,15 @@ export default class Varify extends React.Component {
       return (
         <ImageBackground style={styles.backgroundImage}  source={require('../../assets/space_bg_dark.jpg')} >
         <View style={styles.itemContainer}>
-            <TopMenu point={this.state.point + this.state.globalPoint} roundNr={this.state.roundNr} rightAnswerNr={this.state.rightAnswerNr} />
+            <TopMenu 
+              point={this.state.point + this.state.globalPoint} 
+              roundNr={this.state.roundNr} 
+              rightAnswerNr={this.state.rightAnswerNr} 
+              game={{ rows: [...this.state.game.rows], result: [...this.state.game.results] }}
+            />
             <View style={styles.maki}>
               <Hero height={100} animate={this.state.animate} />
             </View>
-            <Button
-                containerStyle={styles.answerBtn}
-                style={styles.answerBtnText}
-                onPress={() => this.shareGame()}>
-                Share
-              </Button>
             <Text style={styles.title}>
               Do <Text style={styles.fontYellow}>You</Text> know the <Text style={styles.fontRed}>answer?</Text>
             </Text>

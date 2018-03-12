@@ -51,12 +51,39 @@ export default class TopMenu extends React.Component {
     return stars.reverse();
   }
 
+  shareGame(params) {
+    const url = 'http://geniusgames.webmusketas.hu/api/create/image';
+    const init = {
+      method: 'POST',
+      body: JSON.stringify(params),
+      mode: 'no-cors',
+    };
+    return fetch(url, init)
+    .then((response) => console.log(response))
+    .then(data => (console.log(data)))
+    .catch(data => (console.log(data)));
+  }
+
+
   render() {
     let { lastPointOpacity } = this.state;
     return (
       <View >
         <View style={styles.mainMenu}>
           <GameTimer interval="120" />
+          <Button
+            containerStyle={styles.shareBtn}
+            style={styles.shareBtnText}
+            onPress={this.shareGame(this.props.game)}>
+            Share
+          </Button>
+          <Button
+            containerStyle={styles.shareBtn}
+            style={styles.shareBtnText}
+            onPress={this.shareGame(this.props.game)}>
+            Share
+          </Button>
+          
           <Text style={styles.point}>
             {this.padPoint(this.props.point, 5)}
           </Text>

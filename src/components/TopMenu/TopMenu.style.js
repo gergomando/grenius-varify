@@ -53,5 +53,23 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'flex-end',
-  }
+  },
+
+  shareBtn: {
+    justifyContent: 'center',
+    overflow:'hidden',
+    backgroundColor:'#F9D300',
+    borderColor:'#f28807',
+    borderRadius:16, 
+    borderWidth:1,
+    borderBottomWidth: 4,
+  },
+  shareBtnText: {
+    padding:5,
+    paddingRight: 12,
+    paddingLeft: 12,
+    fontSize: 15,
+    color: 'rgb(58,40,0)',
+    fontWeight:'bold',
+  },
 });
