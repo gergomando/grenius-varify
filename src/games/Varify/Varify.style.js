@@ -69,13 +69,13 @@ export default StyleSheet.create({
     width:60,
     overflow:'hidden',
     borderRadius:30, 
-    backgroundColor:'rgba(242,167,5,0.2)',
+    backgroundColor:'#51a751',
     borderWidth:2, 
     borderColor:'#f2a705'
   },
   answerBtnText: {
     fontSize: 18,
-    color: '#F9D300',
+    color: '#fff',
     fontWeight:'bold',
   },
   fontRed: {
