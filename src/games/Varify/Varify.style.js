@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   itemContainer : {
     flex:1,
+
   },
   backgroundImage : {
     flex:1,
@@ -45,13 +46,17 @@ export default StyleSheet.create({
     flexDirection:'row',
     height:96,
     paddingTop: 6,
-    paddingBottom:6,
+    paddingBottom:12,
     justifyContent: 'center',
-    borderBottomWidth:2,
-    borderBottomColor: 'rgba(242,167,5,0.4)',
   },
   noBorder: {
-    borderBottomWidth:0,
+    flexDirection:'row',
+    height:96,
+    paddingTop: 6,
+    paddingBottom:20,
+    justifyContent: 'center',
+    borderBottomWidth:2,
+    borderBottomColor: '#02d34b',
   },
   answerListWrapper : {
     paddingLeft: 12,
@@ -63,19 +68,21 @@ export default StyleSheet.create({
     justifyContent: 'center',
     marginTop:8,
   },
+    
   answerBtn: {
     justifyContent: 'center',
-    height:60,
-    width:60,
+    height:64,
+    width:64,
     overflow:'hidden',
-    borderRadius:30, 
-    backgroundColor:'#51a751',
-    borderWidth:2, 
-    borderColor:'#f2a705'
+    borderRadius:32, 
+    backgroundColor:'#F9D300',
+    borderWidth: 2,
+    borderBottomWidth:5,
+    borderColor:'#f28807',
   },
   answerBtnText: {
-    fontSize: 18,
-    color: '#fff',
+    fontSize: 20,
+    color: 'rgb(58,40,0)',
     fontWeight:'bold',
   },
   fontRed: {
@@ -98,14 +105,30 @@ export default StyleSheet.create({
     fontWeight:'bold',
   },
   resultWrapper: {
-    width:110,
-    fontSize: 32,
     color:'#fff',
+    width: 120,
     paddingTop:16,
     paddingLeft:12,
-    fontWeight:'bold', 
+    fontWeight:'bold',
+    flexDirection: 'row',
+  },
+  equalSign: {
+    fontSize: 32,
+    color:'#fff',
+    fontWeight:'bold',
+    width:60,
+    flex:1,
   },
   result: {
-    color: '#f2a705',
+    flex:1,
+    fontSize: 32,
+    color:'#fff',
+    fontWeight:'bold',
   },
+  resultLast: {
+    flex:1,
+    fontSize: 32,
+    color: '#02d34b',
+    fontWeight:'bold',
+  }
 });

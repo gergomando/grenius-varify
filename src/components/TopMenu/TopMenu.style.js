@@ -8,7 +8,9 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   levelMenu: {
+    paddingLeft: 12,
     paddingRight:12,
+    flexDirection: 'row',
   },
   rightIcon: {
     alignSelf: 'center',
@@ -52,24 +54,28 @@ export default StyleSheet.create({
   starsWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    alignSelf: 'flex-end',
+    flex:1,
+    justifyContent: 'flex-end',
   },
 
+  linksWrapper: {
+    flex: 1,
+  },
   shareBtn: {
+    alignSelf: 'flex-start',
     justifyContent: 'center',
-    overflow:'hidden',
-    backgroundColor:'#F9D300',
-    borderColor:'#f28807',
-    borderRadius:16, 
+    alignItems: 'center',
+    backgroundColor:'#4F3E9A',
+    borderColor: '#1f0d6b',
+    borderRadius: 25,
+    paddingTop: 2,
+    width: 34,
+    height: 34,
     borderWidth:1,
     borderBottomWidth: 4,
   },
-  shareBtnText: {
-    padding:5,
-    paddingRight: 12,
-    paddingLeft: 12,
-    fontSize: 15,
-    color: 'rgb(58,40,0)',
-    fontWeight:'bold',
+  shareBtnIcon: {
+    width: 20,
+    height: 20,
   },
 });

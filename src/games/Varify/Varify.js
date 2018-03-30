@@ -126,9 +126,10 @@ export default class Varify extends React.Component {
                 <FlatList
                   data={this.state.game.rows}
                   contentContainerStyle={styles.equationList}
-                  renderItem={({item}) =>
+                  renderItem={({item, index}) =>
                   <View style={styles.itemWrapper} key={item.result}>
-                      <View style={styles.equationItem}>
+                      <View style={index === this.state.game.rows.length -1 ? 
+                        styles.noBorder : styles.equationItem }>
                           <View style={styles.multiplierImage}>
                             {this.getMultiplierImage(item.multiplier_1, 'hamburger')}
                           </View>
@@ -141,9 +142,19 @@ export default class Varify extends React.Component {
                             {this.getMultiplierImage(item.multiplier_2,'pizza')}
                           </View>
                           
-                          <Text style={styles.resultWrapper}>
-                            = <Text style={styles.result}>{`${item.result}`}</Text>
-                          </Text>
+                          <View style={styles.resultWrapper}>
+                              <Text style={styles.equalSign}>
+                              =
+                              </Text>
+                              <Text 
+                                style=
+                                { index === this.state.game.rows.length -1 ? 
+                                  styles.resultLast : styles.result 
+                                }
+                              >
+                                {`${item.result}`}
+                              </Text>
+                          </View>
                       </View>
                   </View>}
                 />

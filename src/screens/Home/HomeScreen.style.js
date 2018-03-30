@@ -43,11 +43,11 @@ export default StyleSheet.create({
   playBtnInsideFb : {
     color: '#fff',
   },
-  item : {
+  item: {
     flexDirection: 'row',
     fontSize: 18,
   },
-  backgroundImage : {
+  backgroundImage: {
     flex:1,
     resizeMode:'cover',
     width:null,
