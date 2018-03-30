@@ -73,15 +73,13 @@ export default class TopMenu extends React.Component {
     const gameData = { userID: this.state.user.uid , game };
     const games = firebase.firestore().collection('games');
     return games.add(gameData).then(function(doc) {
-      const url = `http://geniusgames.webmusketas.hu/api/create/img/${doc.id}`;
       
-      self.shareLinkWithShareDialog(url);
-
+      const url = `http://geniusgames.webmusketas.hu/api/create/image/${doc.id}`;
       return fetch(url)
       .then((response) => response.json())
       .then(data => {
-        // facebook share with html url
-        console.log(data);
+        const link = `http://geniusgames.webmusketas.hu/shared/${doc.id}`;
+        self.shareLinkWithShareDialog(link);
 
       }).catch(error => (console.log(error)));
     }).catch(function(error) {
@@ -93,7 +91,6 @@ export default class TopMenu extends React.Component {
     const link = { ...shareLink, contentUrl }; 
     return ShareDialog.canShow(link).then(
       function(canShow) {
-        console.log('hijja00');
         if (canShow) {
           return ShareDialog.show(link);
         }
